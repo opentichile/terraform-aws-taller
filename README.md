@@ -16,36 +16,83 @@ Herramientas a evaluar:
 - R53 Hosted Zone
 - EFS (optional)
 
+* \*\* Para Planificar terraform >\$ terraform plan -var-file="tfvars.json"
+
 ```
+Recursos Terraform
 Terraform will perform the following actions:
 
-  # aws_eip.APP_EIP will be created
-  + resource "aws_eip" "APP_EIP" {
-      + allocation_id     = (known after apply)
-      + association_id    = (known after apply)
-      + customer_owned_ip = (known after apply)
-      + domain            = (known after apply)
-      + id                = (known after apply)
-      + instance          = (known after apply)
-      + network_interface = (known after apply)
-      + private_dns       = (known after apply)
-      + private_ip        = (known after apply)
-      + public_dns        = (known after apply)
-      + public_ip         = (known after apply)
-      + public_ipv4_pool  = (known after apply)
-      + vpc               = (known after apply)
-    }
 
-  # aws_internet_gateway.PROJECT_IGW will be created
-  + resource "aws_internet_gateway" "PROJECT_IGW" {
-      + id       = (known after apply)
-      + owner_id = (known after apply)
-      + tags     = {
+
+  # aws_db_instance.Postgres_DB_Instance will be created
+  + resource "aws_db_instance" "Postgres_DB_Instance" {
+      + address                               = (known after apply)
+      + allocated_storage                     = 20
+      + apply_immediately                     = (known after apply)
+      + arn                                   = (known after apply)
+      + auto_minor_version_upgrade            = true
+      + availability_zone                     = (known after apply)
+      + backup_retention_period               = (known after apply)
+      + backup_window                         = (known after apply)
+      + ca_cert_identifier                    = (known after apply)
+      + character_set_name                    = (known after apply)
+      + copy_tags_to_snapshot                 = false
+      + db_subnet_group_name                  = (known after apply)
+      + delete_automated_backups              = true
+      + endpoint                              = (known after apply)
+      + engine                                = "postgres"
+      + engine_version                        = "10.6"
+      + hosted_zone_id                        = (known after apply)
+      + id                                    = (known after apply)
+      + identifier                            = "tallerdevopssre-rds"
+      + identifier_prefix                     = (known after apply)
+      + instance_class                        = "db.12.small"
+      + kms_key_id                            = (known after apply)
+      + license_model                         = (known after apply)
+      + maintenance_window                    = (known after apply)
+      + monitoring_interval                   = 0
+      + monitoring_role_arn                   = (known after apply)
+      + multi_az                              = true
+      + name                                  = "sample"
+      + option_group_name                     = (known after apply)
+      + parameter_group_name                  = (known after apply)
+      + password                              = (sensitive value)
+      + performance_insights_enabled          = false
+      + performance_insights_kms_key_id       = (known after apply)
+      + performance_insights_retention_period = (known after apply)
+      + port                                  = (known after apply)
+      + publicly_accessible                   = false
+      + replicas                              = (known after apply)
+      + resource_id                           = (known after apply)
+      + skip_final_snapshot                   = true
+      + status                                = (known after apply)
+      + storage_encrypted                     = true
+      + storage_type                          = "gp2"
+      + tags                                  = {
           + "Environment" = "TALLERDEVOPSSRE"
-          + "Name"        = "TALLERDEVOPSSRE-IGW"
+          + "Name"        = "TALLERDEVOPSSRE-RDS"
           + "Product"     = "WEBAPP"
         }
-      + vpc_id   = (known after apply)
+      + timezone                              = (known after apply)
+      + username                              = "projectUser"
+      + vpc_security_group_ids                = [
+          + "sg-0ab004aefd975db09",
+        ]
+    }
+
+  # aws_db_subnet_group.Postgres_DB_Subnet_Group will be created
+  + resource "aws_db_subnet_group" "Postgres_DB_Subnet_Group" {
+      + arn         = (known after apply)
+      + description = "Managed by Terraform"
+      + id          = (known after apply)
+      + name        = "tallerdevopssre_subnet_group"
+      + name_prefix = (known after apply)
+      + subnet_ids  = (known after apply)
+      + tags        = {
+          + "Environment" = "TALLERDEVOPSSRE"
+          + "Name"        = "TALLERDEVOPSSRE-SUBNET-GROUP"
+          + "Product"     = "WEBAPP"
+        }
     }
 
   # aws_lb.app_alb will be created
@@ -62,7 +109,9 @@ Terraform will perform the following actions:
       + ip_address_type            = (known after apply)
       + load_balancer_type         = "application"
       + name                       = "TALLERDEVOPSSRE-app-ALB"
-      + security_groups            = (known after apply)
+      + security_groups            = [
+          + "sg-09f6ca6804dd9cf9b",
+        ]
       + subnets                    = (known after apply)
       + tags                       = {
           + "Environment" = "TALLERDEVOPSSRE"
@@ -89,54 +138,14 @@ Terraform will perform the following actions:
 
       + default_action {
           + order            = (known after apply)
-          + target_group_arn = (known after apply)
+          + target_group_arn = "arn:aws:elasticloadbalancing:us-east-2:351429232809:targetgroup/TALLERDEVOPSSRE-APP-TF/38f87fef92cfbd62"
           + type             = "forward"
-        }
-    }
-
-  # aws_lb_target_group.APP_TG will be created
-  + resource "aws_lb_target_group" "APP_TG" {
-      + arn                                = (known after apply)
-      + arn_suffix                         = (known after apply)
-      + deregistration_delay               = 300
-      + id                                 = (known after apply)
-      + lambda_multi_value_headers_enabled = false
-      + load_balancing_algorithm_type      = (known after apply)
-      + name                               = "TALLERDEVOPSSRE-APP-TF"
-      + port                               = 80
-      + protocol                           = "HTTP"
-      + proxy_protocol_v2                  = false
-      + slow_start                         = 0
-      + tags                               = {
-          + "Environment" = "TALLERDEVOPSSRE"
-          + "Name"        = "TALLERDEVOPSSRE-app-LB-TG"
-          + "Product"     = "WEBAPP"
-        }
-      + target_type                        = "instance"
-      + vpc_id                             = (known after apply)
-
-      + health_check {
-          + enabled             = true
-          + healthy_threshold   = 2
-          + interval            = 30
-          + matcher             = "200"
-          + path                = (known after apply)
-          + port                = "traffic-port"
-          + protocol            = "HTTP"
-          + timeout             = 5
-          + unhealthy_threshold = 2
-        }
-
-      + stickiness {
-          + cookie_duration = (known after apply)
-          + enabled         = (known after apply)
-          + type            = (known after apply)
         }
     }
 
   # aws_nat_gateway.PROJECT_NAT will be created
   + resource "aws_nat_gateway" "PROJECT_NAT" {
-      + allocation_id        = (known after apply)
+      + allocation_id        = "eipalloc-00a1892f450b2efc0"
       + id                   = (known after apply)
       + network_interface_id = (known after apply)
       + private_ip           = (known after apply)
@@ -207,59 +216,33 @@ Terraform will perform the following actions:
           + "Name"        = "TALLERDEVOPSSRE-NANCL"
           + "Product"     = "WEBAPP"
         }
-      + vpc_id     = (known after apply)
+      + vpc_id     = "vpc-0f9c098ab63c01e32"
     }
 
-  # aws_route_table.PROJECT_PRIVATE_ROUTE will be created
-  + resource "aws_route_table" "PROJECT_PRIVATE_ROUTE" {
-      + id               = (known after apply)
-      + owner_id         = (known after apply)
-      + propagating_vgws = (known after apply)
-      + route            = [
+  # aws_route_table.PROJECT_PRIVATE_ROUTE is tainted, so must be replaced
+-/+ resource "aws_route_table" "PROJECT_PRIVATE_ROUTE" {
+      ~ id               = "rtb-0ff4ac6458a625e33" -> (known after apply)
+      ~ owner_id         = "351429232809" -> (known after apply)
+      ~ propagating_vgws = [] -> (known after apply)
+      ~ route            = [
           + {
               + cidr_block                = "0.0.0.0/0"
               + egress_only_gateway_id    = ""
               + gateway_id                = ""
               + instance_id               = ""
               + ipv6_cidr_block           = ""
-              + nat_gateway_id            = (known after apply)
+              + nat_gateway_id            = "igw-034cf628d3a2c24ac"
               + network_interface_id      = ""
               + transit_gateway_id        = ""
               + vpc_peering_connection_id = ""
             },
         ]
-      + tags             = {
-          + "Environment" = "TALLERDEVOPSSRE"
-          + "Name"        = "TALLERDEVOPSSRE-PRIVATE-RT"
-          + "Product"     = "WEBAPP"
+        tags             = {
+            "Environment" = "TALLERDEVOPSSRE"
+            "Name"        = "TALLERDEVOPSSRE-PRIVATE-RT"
+            "Product"     = "WEBAPP"
         }
-      + vpc_id           = (known after apply)
-    }
-
-  # aws_route_table.PROJECT_PUBLIC_ROUTE will be created
-  + resource "aws_route_table" "PROJECT_PUBLIC_ROUTE" {
-      + id               = (known after apply)
-      + owner_id         = (known after apply)
-      + propagating_vgws = (known after apply)
-      + route            = [
-          + {
-              + cidr_block                = "0.0.0.0/0"
-              + egress_only_gateway_id    = ""
-              + gateway_id                = (known after apply)
-              + instance_id               = ""
-              + ipv6_cidr_block           = ""
-              + nat_gateway_id            = ""
-              + network_interface_id      = ""
-              + transit_gateway_id        = ""
-              + vpc_peering_connection_id = ""
-            },
-        ]
-      + tags             = {
-          + "Environment" = "TALLERDEVOPSSRE"
-          + "Name"        = "TALLERDEVOPSSRE-PUBLIC-RT"
-          + "Product"     = "WEBAPP"
-        }
-      + vpc_id           = (known after apply)
+        vpc_id           = "vpc-0f9c098ab63c01e32"
     }
 
   # aws_route_table_association.PRIVATE_ASSO will be created
@@ -272,130 +255,8 @@ Terraform will perform the following actions:
   # aws_route_table_association.PUBLIC_ASSO will be created
   + resource "aws_route_table_association" "PUBLIC_ASSO" {
       + id             = (known after apply)
-      + route_table_id = (known after apply)
+      + route_table_id = "rtb-06c4ef0d4f6e14d58"
       + subnet_id      = (known after apply)
-    }
-
-  # aws_security_group.APP_ALB_SG will be created
-  + resource "aws_security_group" "APP_ALB_SG" {
-      + arn                    = (known after apply)
-      + description            = "Managed by Terraform"
-      + egress                 = [
-          + {
-              + cidr_blocks      = [
-                  + "0.0.0.0/0",
-                ]
-              + description      = ""
-              + from_port        = 0
-              + ipv6_cidr_blocks = []
-              + prefix_list_ids  = []
-              + protocol         = "-1"
-              + security_groups  = []
-              + self             = false
-              + to_port          = 0
-            },
-        ]
-      + id                     = (known after apply)
-      + ingress                = [
-          + {
-              + cidr_blocks      = []
-              + description      = ""
-              + from_port        = 443
-              + ipv6_cidr_blocks = []
-              + prefix_list_ids  = []
-              + protocol         = "tcp"
-              + security_groups  = (known after apply)
-              + self             = false
-              + to_port          = 443
-            },
-          + {
-              + cidr_blocks      = []
-              + description      = ""
-              + from_port        = 80
-              + ipv6_cidr_blocks = []
-              + prefix_list_ids  = []
-              + protocol         = "tcp"
-              + security_groups  = (known after apply)
-              + self             = false
-              + to_port          = 80
-            },
-        ]
-      + name                   = "TALLERDEVOPSSRE-ALB-SG"
-      + owner_id               = (known after apply)
-      + revoke_rules_on_delete = false
-      + vpc_id                 = (known after apply)
-    }
-
-  # aws_security_group.APP_SG will be created
-  + resource "aws_security_group" "APP_SG" {
-      + arn                    = (known after apply)
-      + description            = "Managed by Terraform"
-      + egress                 = [
-          + {
-              + cidr_blocks      = [
-                  + "0.0.0.0/0",
-                ]
-              + description      = ""
-              + from_port        = 0
-              + ipv6_cidr_blocks = []
-              + prefix_list_ids  = []
-              + protocol         = "-1"
-              + security_groups  = []
-              + self             = false
-              + to_port          = 0
-            },
-        ]
-      + id                     = (known after apply)
-      + ingress                = [
-          + {
-              + cidr_blocks      = [
-                  + "10.12.0.0/24",
-                ]
-              + description      = ""
-              + from_port        = 22
-              + ipv6_cidr_blocks = []
-              + prefix_list_ids  = []
-              + protocol         = "tcp"
-              + security_groups  = []
-              + self             = false
-              + to_port          = 22
-            },
-          + {
-              + cidr_blocks      = [
-                  + "10.12.0.0/24",
-                ]
-              + description      = ""
-              + from_port        = 3389
-              + ipv6_cidr_blocks = []
-              + prefix_list_ids  = []
-              + protocol         = "tcp"
-              + security_groups  = []
-              + self             = false
-              + to_port          = 3389
-            },
-          + {
-              + cidr_blocks      = [
-                  + "10.12.0.0/24",
-                ]
-              + description      = ""
-              + from_port        = 80
-              + ipv6_cidr_blocks = []
-              + prefix_list_ids  = []
-              + protocol         = "tcp"
-              + security_groups  = []
-              + self             = false
-              + to_port          = 80
-            },
-        ]
-      + name                   = "TALLERDEVOPSSRE-SG-APP"
-      + owner_id               = (known after apply)
-      + revoke_rules_on_delete = false
-      + tags                   = {
-          + "Environment" = "TALLERDEVOPSSRE"
-          + "Name"        = "TALLERDEVOPSSRE-SG"
-          + "Product"     = "WEBAPP"
-        }
-      + vpc_id                 = (known after apply)
     }
 
   # aws_subnet.PROJECT_PRIVATE_SUBNET will be created
@@ -414,7 +275,7 @@ Terraform will perform the following actions:
           + "Name"        = "TALLERDEVOPSSRE-SUBNET-AZ-B"
           + "Product"     = "WEBAPP"
         }
-      + vpc_id                          = (known after apply)
+      + vpc_id                          = "vpc-0f9c098ab63c01e32"
     }
 
   # aws_subnet.PROJECT_PUBLIC_SUBNET will be created
@@ -433,33 +294,7 @@ Terraform will perform the following actions:
           + "Name"        = "TALLERDEVOPSSRE-SUBNET-AZ-A"
           + "Product"     = "WEBAPP"
         }
-      + vpc_id                          = (known after apply)
-    }
-
-  # aws_vpc.PROJECT_VPC will be created
-  + resource "aws_vpc" "PROJECT_VPC" {
-      + arn                              = (known after apply)
-      + assign_generated_ipv6_cidr_block = false
-      + cidr_block                       = "10.12.0.0/24"
-      + default_network_acl_id           = (known after apply)
-      + default_route_table_id           = (known after apply)
-      + default_security_group_id        = (known after apply)
-      + dhcp_options_id                  = (known after apply)
-      + enable_classiclink               = (known after apply)
-      + enable_classiclink_dns_support   = (known after apply)
-      + enable_dns_hostnames             = true
-      + enable_dns_support               = true
-      + id                               = (known after apply)
-      + instance_tenancy                 = "default"
-      + ipv6_association_id              = (known after apply)
-      + ipv6_cidr_block                  = (known after apply)
-      + main_route_table_id              = (known after apply)
-      + owner_id                         = (known after apply)
-      + tags                             = {
-          + "Environment" = "TALLERDEVOPSSRE"
-          + "Name"        = "TALLERDEVOPSSRE-VPC"
-          + "Product"     = "WEBAPP"
-        }
+      + vpc_id                          = "vpc-0f9c098ab63c01e32"
     }
 
   # aws_vpc_endpoint.PROJECT_S3_ENDPOINT will be created
@@ -479,8 +314,10 @@ Terraform will perform the following actions:
       + state                 = (known after apply)
       + subnet_ids            = (known after apply)
       + vpc_endpoint_type     = "Gateway"
-      + vpc_id                = (known after apply)
+      + vpc_id                = "vpc-0f9c098ab63c01e32"
     }
+
+
 
 ```
 
