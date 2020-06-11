@@ -1,6 +1,7 @@
 variable "aws_region" {
   description = "AWS Region"
-  default     = ""
+  type        = string
+  default     = "us-east-2"
 }
 
 variable "env" {
@@ -18,7 +19,7 @@ variable "dir_type" {
   default = "SimpleAD"
 }
 
-variable "az_name" {
+variable "az_names" {
   type    = list(string)
   default = [""]
 }
@@ -42,8 +43,6 @@ variable "domain_name" {
 variable "allocated_storage" {
 }
 
-variable "servicename" {
-}
 
 variable "engine_name" {
 }

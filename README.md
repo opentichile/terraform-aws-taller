@@ -1,4 +1,4 @@
-# terraform-aws-taller
+# PROYECTO TERRAFORM PACKER ANSIBLE
 
 Objetivo: demostrar de forma práctica el conocimiento de automatización y configuración de infraestructura.
 Herramientas a evaluar:
@@ -47,11 +47,13 @@ Descripcion :
 ├── locals.tf
 ├── project-ubuntu.json
 ├── provider.tf
-├── route53.tf
+├── rds.tf
+├── terraform.tfstate
 ├── tfvars.json
 ├── var.tf
-├── versions.tf
+├── verions.tf
 └── vpc.tf
+
 
 
 ```
