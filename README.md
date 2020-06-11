@@ -47,13 +47,11 @@ Descripcion :
 ├── locals.tf
 ├── project-ubuntu.json
 ├── provider.tf
-├── rds.tf
-├── terraform.tfstate
+├── route53.tf
 ├── tfvars.json
 ├── var.tf
-├── verions.tf
+├── versions.tf
 └── vpc.tf
-
 
 
 ```
