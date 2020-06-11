@@ -1,0 +1,11 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-east-2",
+      "source-ami": "ami-026dea5602e368e96",
+      "instance_type": "m4.xlarge",
+      "ssh_username": "ubuntu"
+    }
+  ]
+}
