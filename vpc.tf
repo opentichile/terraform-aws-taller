@@ -1,4 +1,4 @@
-# PVC
+# VPC
 resource "aws_vpc" "PROJECT_VPC" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
@@ -10,7 +10,7 @@ resource "aws_vpc" "PROJECT_VPC" {
 }
 # GateWAY
 resource "aws_internet_gateway" "PROJECT_IGW" {
-  vpc_id = aws_pvc.PROJECT_VPC.id
+  vpc_id = aws_vpc.PROJECT_VPC.id
   tags = merge({
     "Name" = "${local.name_prefix}-IGW"
     },
@@ -51,7 +51,7 @@ resource "aws_eip" "APP_EIP" {
 # NAT GATEWAY
 resource "aws_nat_gateway" "PROJECT_NAT" {
   subnet_id     = aws_subnet.PROJECT_PUBLIC_SUBNET.id
-  allocation_id = aws_eip.APP_EIP.vpc_id
+  allocation_id = aws_eip.APP_EIP.id
   tags = merge({
     "Name" = "${local.name_prefix}-NGW"
     },
@@ -63,7 +63,7 @@ resource "aws_route_table" "PROJECT_PUBLIC_ROUTE" {
   vpc_id = aws_vpc.PROJECT_VPC.id
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet.PROJECT_IGW.id
+    gateway_id = aws_internet_gateway.PROJECT_IGW.id
   }
   tags = merge({
     "Name" = "${local.name_prefix}-PUBLIC-RT"
@@ -73,7 +73,7 @@ resource "aws_route_table" "PROJECT_PUBLIC_ROUTE" {
 
 }
 
-resource "aws_route_table" "PROJECT_PRIVATE_ROUTE" {
+resource "aws_route_table" "PROJECT_S3_ENDPOINT" {
   vpc_id          = aws_vpc.PROJECT_VPC.id
   service_name    = "com.amazonaws.${var.aws_region}.s3"
   route_table_ids = [aws_route_table.PROJECT_PUBLIC_ROUTE.id, aws_route_table.PROJECT_PRIVATE_ROUTE.id]
@@ -97,7 +97,7 @@ resource "aws_network_acl" "PROJECT_NACL" {
     protocol   = "tcp"
     rule_no    = 110
     action     = "deny"
-    cidr_block = "0.0.0.0/0"
+    cidr_blocks = "0.0.0.0/0"
     from_port  = 23
     to_port    = 23
   }
@@ -106,7 +106,7 @@ resource "aws_network_acl" "PROJECT_NACL" {
     protocol   = "tcp"
     rule_no    = 32766
     action     = "allow"
-    cidr_block = "0.0.0.0/0"
+    cidr_blocks = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0
   }
@@ -115,7 +115,7 @@ resource "aws_network_acl" "PROJECT_NACL" {
     protocol   = "tcp"
     rule_no    = 110
     action     = "deny"
-    cidr_block = "0.0.0.0/0"
+    cidr_blocks = "0.0.0.0/0"
     from_port  = 23
     to_port    = 23
   }
@@ -124,7 +124,7 @@ resource "aws_network_acl" "PROJECT_NACL" {
     protocol   = "tcp"
     rule_no    = 32766
     action     = "allow"
-    cidr_block = "0.0.0.0/0"
+    cidr_blocks = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0
   }
@@ -160,7 +160,7 @@ resource "aws_security_group" "APP_ALB_SG" {
     from_port  = 0
     to_port    = 0
     protocol   = "-1"
-    cidr_block = "0.0.0.0/0"
+    cidr_blocks = [aws_security_group.APP_SG.id]
   }
 
 }
@@ -194,7 +194,7 @@ resource "aws_security_group" "APP_SG" {
     from_port  = 0
     to_port    = 0
     protocol   = "-1"
-    cidr_block = "0.0.0.0/0"
+    cidr_blocks  = [aws_vpc.PROJECT_VPC.cidr_block]
   }
   lifecycle {
     create_before_destroy = true

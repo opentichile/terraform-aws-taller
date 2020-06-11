@@ -118,9 +118,9 @@ Terraform will perform the following actions:
   - timezone = (known after apply)
   - username = "projectUser"
   - vpc_security_group_ids = [
-    + "sg-0ab004aefd975db09",
-    ]
-    }
+    - "sg-0ab004aefd975db09",
+      ]
+      }
 
 # aws_db_subnet_group.Postgres_DB_Subnet_Group will be created
 
@@ -201,32 +201,32 @@ Terraform will perform the following actions:
   - egress = [
     - {
       - action = "allow"
-      - cidr_block = "0.0.0.0/0"
+      - cidr_blocks = "0.0.0.0/0"
       - from_port = 0
       - icmp_code = null
       - icmp_type = null
-      - ipv6_cidr_block = ""
+      - ipv6_cidr_blocks = ""
       - protocol = "tcp"
       - rule_no = 32766
       - to_port = 0
         },
-    - { + action = "deny" + cidr_block = "0.0.0.0/0" + from_port = 23 + icmp_code = null + icmp_type = null + ipv6_cidr_block = "" + protocol = "tcp" + rule_no = 110 + to_port = 23
+    - { + action = "deny" + cidr_blocks = "0.0.0.0/0" + from_port = 23 + icmp_code = null + icmp_type = null + ipv6_cidr_blocks = "" + protocol = "tcp" + rule_no = 110 + to_port = 23
       },
       ]
   - id = (known after apply)
   - ingress = [
     - {
       - action = "allow"
-      - cidr_block = "0.0.0.0/0"
+      - cidr_blocks = "0.0.0.0/0"
       - from_port = 0
       - icmp_code = null
       - icmp_type = null
-      - ipv6_cidr_block = ""
+      - ipv6_cidr_blocks = ""
       - protocol = "tcp"
       - rule_no = 32766
       - to_port = 0
         },
-    - { + action = "deny" + cidr_block = "0.0.0.0/0" + from_port = 23 + icmp_code = null + icmp_type = null + ipv6_cidr_block = "" + protocol = "tcp" + rule_no = 110 + to_port = 23
+    - { + action = "deny" + cidr_blocks = "0.0.0.0/0" + from_port = 23 + icmp_code = null + icmp_type = null + ipv6_cidr_blocks = "" + protocol = "tcp" + rule_no = 110 + to_port = 23
       },
       ]
   - owner_id = (known after apply)
@@ -246,25 +246,26 @@ Terraform will perform the following actions:
 ~ owner_id = "351429232809" -> (known after apply)
 ~ propagating_vgws = [] -> (known after apply)
 ~ route = [
-+ {
-+ cidr_block = "0.0.0.0/0"
-+ egress_only_gateway_id = ""
-+ gateway_id = ""
-+ instance_id = ""
-+ ipv6_cidr_block = ""
-+ nat_gateway_id = "igw-034cf628d3a2c24ac"
-+ network_interface_id = ""
-+ transit_gateway_id = ""
-+ vpc_peering_connection_id = ""
-},
-]
-tags = {
-"Environment" = "TALLERDEVOPSSRE"
-"Name" = "TALLERDEVOPSSRE-PRIVATE-RT"
-"Product" = "WEBAPP"
-}
-vpc_id = "vpc-0f9c098ab63c01e32"
-}
+
+- {
+- cidr_blocks = "0.0.0.0/0"
+- egress_only_gateway_id = ""
+- gateway_id = ""
+- instance_id = ""
+- ipv6_cidr_blocks = ""
+- nat_gateway_id = "igw-034cf628d3a2c24ac"
+- network_interface_id = ""
+- transit_gateway_id = ""
+- vpc_peering_connection_id = ""
+  },
+  ]
+  tags = {
+  "Environment" = "TALLERDEVOPSSRE"
+  "Name" = "TALLERDEVOPSSRE-PRIVATE-RT"
+  "Product" = "WEBAPP"
+  }
+  vpc_id = "vpc-0f9c098ab63c01e32"
+  }
 
 # aws_route_table_association.PRIVATE_ASSO will be created
 
@@ -290,8 +291,8 @@ vpc_id = "vpc-0f9c098ab63c01e32"
   - availability_zone = "us-east-2b"
   - availability_zone_id = (known after apply)
   - id = (known after apply)
-  - ipv6_cidr_block = (known after apply)
-  - ipv6_cidr_block_association_id = (known after apply)
+  - ipv6_cidr_blocks = (known after apply)
+  - ipv6_cidr_blocks_association_id = (known after apply)
   - map_public_ip_on_launch = false
   - owner_id = (known after apply)
   - tags = {
@@ -310,8 +311,8 @@ vpc_id = "vpc-0f9c098ab63c01e32"
   - availability_zone = "us-east-2a"
   - availability_zone_id = (known after apply)
   - id = (known after apply)
-  - ipv6_cidr_block = (known after apply)
-  - ipv6_cidr_block_association_id = (known after apply)
+  - ipv6_cidr_blocks = (known after apply)
+  - ipv6_cidr_blocks_association_id = (known after apply)
   - map_public_ip_on_launch = true
   - owner_id = (known after apply)
   - tags = {

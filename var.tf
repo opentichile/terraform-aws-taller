@@ -1,45 +1,48 @@
 variable "aws_region" {
-    description = "AWS Region"
-    default = ""
+  description = "AWS Region"
+  default     = ""
 }
 
 variable "env" {
-    type = string
-    default = "Course"
+  type    = string
+  default = "PROJECT"
 }
 
 variable "product" {
-    type = string
-    default = ""
+  type    = string
+  default = ""
 }
 
 variable "dir_type" {
-    type = string
-    default = "SimpleAD"
+  type    = string
+  default = "SimpleAD"
 }
 
 variable "az_name" {
-    type = list(string)
-    default = [""]
+  type    = list(string)
+  default = [""]
 }
 
 variable "vpc_cidr" {
-    type = string    
+  type = string
 }
 
 variable "instance_type" {
-    type = string    
+  type = string
 }
 
 variable "subnet_cidr_blocks" {
-    type = list(string)
-    default = [""]
+  type    = list(string)
+  default = [""]
 }
 
 variable "domain_name" {
 }
 
 variable "allocated_storage" {
+}
+
+variable "servicename" {
 }
 
 variable "engine_name" {
@@ -52,13 +55,13 @@ variable "db_instance_type" {
 }
 
 variable "db_name" {
-    type = string    
+  type = string
 }
 
 variable "username" {
-    type = string    
+  type = string
 }
 
 variable "password" {
-    type = string    
+  type = string
 }
