@@ -43,16 +43,15 @@ Descripcion :
 .
 ├── README.md
 ├── imagen.png
-├── load-balancer.tf
 ├── load_balancer.tf
 ├── locals.tf
-├── packer-ubuntu.json
 ├── project-ubuntu.json
 ├── provider.tf
-├── route53.tf
+├── rds.tf
+├── terraform.tfstate
 ├── tfvars.json
 ├── var.tf
-├── versions.tf
+├── verions.tf
 └── vpc.tf
 
 

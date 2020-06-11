@@ -1,6 +1,6 @@
 {
   "aws_region": "us-east-2",
-  "env": "TALLER DEVOPS SRE",
+  "env": "TALLER-DEVOPS-SRE",
   "vpc_cidr": "10.12.0.0/24",
   "product": "WEBAPP",
   "instance_type": "t3.xlarge",
