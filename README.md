@@ -42,16 +42,24 @@ Descripcion :
 ```
 .
 ├── README.md
+├── ansible-webserver-playbook.yml
+├── autoscaling_group.tf
+├── ec2_jumbox.tf
+├── ec2_single_web_servers.tf
 ├── imagen.png
-├── load_balancer.tf
+├── load-balancer.tf
 ├── locals.tf
+├── packer-ubuntu.json
 ├── project-ubuntu.json
 ├── provider.tf
 ├── rds.tf
+├── roles.tf
+├── route53.tf
 ├── terraform.tfstate
+├── terraform.tfstate.backup
 ├── tfvars.json
 ├── var.tf
-├── verions.tf
+├── versions.tf
 └── vpc.tf
 
 
